@@ -10,7 +10,7 @@ public class ClearCounter : BaseCounter, IKitchenObjectParent {
     
     private KitchenObject kitchenObject;
     
-    public void Interact(Player player) {
+    public override void Interact(Player player) {
         if (kitchenObject == null) {
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, counterTopPoint);
             kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
