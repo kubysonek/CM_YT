@@ -36,17 +36,23 @@ public class CuttingCounter : BaseCounter, IHasProgress {
         }
         else {
             //There is a KitchenObject on the counter
-            if (!player.HasKitchenObject()) {
-                //Player is not carrying KitchenObject
-                GetKitchenObject().SetKitchenObjectParent(player);
-   
-                //To hide ProgressBarUI - progress is reset on placing an item anyway so
-                OnProgressChanged?.Invoke(this,new IHasProgress.OnProgressChangedEventArgs {
-                    progressNormalized = 0f
-                });
+            if (player.HasKitchenObject()) {
+                //Player is carrying KitchenObject
+                if (player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject)) {
+                    //Player is holding a plate
+                    if (plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO())) {
+                        GetKitchenObject().DestroySelf();
+                    }
+                }
             }
             else {
-                //Player is carrying KitchenObject
+                //Player is not carrying KitchenObject
+                GetKitchenObject().SetKitchenObjectParent(player);
+
+                //To hide ProgressBarUI - progress is reset on placing an item anyway so
+                OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs {
+                    progressNormalized = 0f
+                });
             }
         }
     }
