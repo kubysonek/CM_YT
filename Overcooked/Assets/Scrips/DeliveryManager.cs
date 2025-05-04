@@ -34,7 +34,6 @@ public class DeliveryManager : MonoBehaviour {
                 RecipeSO waitingRecipeSO = recipeListSO.recipeListSO[Random.Range(0, recipeListSO.recipeListSO.Count)];
                 waitingRecipeSOList.Add(waitingRecipeSO);
                 OnRecipeAdded?.Invoke(this, EventArgs.Empty);
-                Debug.Log(waitingRecipeSO.recipeName);
             }
         }
     }
@@ -66,9 +65,8 @@ public class DeliveryManager : MonoBehaviour {
 
                 if (plateContensMatchesRecipe) {
                     //Player delivered the correct recipe!
-                    Debug.Log("Player delivered the correct recipe!");
-                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                     waitingRecipeSOList.RemoveAt(i);
+                    OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
@@ -76,7 +74,7 @@ public class DeliveryManager : MonoBehaviour {
         
         //No matches found!
         //Player did not deliver a correct recipe!
-        Debug.Log("Player did not deliver a correct recipe!");
+
     }
 
     public List<RecipeSO> GetWaitingRecipeSO() {
