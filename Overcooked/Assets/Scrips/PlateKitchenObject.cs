@@ -13,6 +13,7 @@ public class PlateKitchenObject : KitchenObject {
 
     [SerializeField] private List<KitchenObjectSO> validKitchenObjectSOList;
     private List<KitchenObjectSO> kitchenObjectSOList;
+    
     private void Awake() {
         kitchenObjectSOList = new List<KitchenObjectSO>();
     }
@@ -34,5 +35,9 @@ public class PlateKitchenObject : KitchenObject {
             return true;
         }
 
+    }
+
+    public List<KitchenObjectSO> GetKitchenObjectSOList() {
+        return kitchenObjectSOList;
     }
 }
